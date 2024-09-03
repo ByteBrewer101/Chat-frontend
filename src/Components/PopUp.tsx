@@ -9,7 +9,7 @@ export function Popup() {
   } else
     return (
       <div className=" absolute  w-screen  h-screen bg-opacity-5 bg-black rounded-xl backdrop-blur-xl z-50">
-        <div className="p-4 sm:p-6 md:p-10 absolute top-1/2 left-1/2 w-full max-w-md h-auto bg-opacity-10 white rounded-xl backdrop-blur-lg z-50 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="p-4 sm:p-6 md:p-10 absolute top-1/2 left-1/2 w-full max-w-md shadow-xl h-auto bg-opacity-20 bg-black rounded-xl backdrop-blur-3xl z-50 transform -translate-x-1/2 -translate-y-1/2">
           <div className="flex items-center justify-center text-white p-4">
             <h1 className="font-extrabold text-2xl sm:text-3xl">
               Enter your Room Id
@@ -19,7 +19,7 @@ export function Popup() {
             <input
               type="text"
               placeholder="Room Id"
-              className="rounded-xl p-4 w-full bg-opacity-10 bg-white backdrop-blur-sm"
+              className="rounded-xl p-4 w-full bg-opacity-20 bg-blue-500 shadow-lg backdrop-blur-sm focus:outline-none "
             />
           </div>
           <div className="flex items-center justify-center text-white mt-2">
@@ -27,7 +27,7 @@ export function Popup() {
               onClick={() => {
                 setWorking(false); // Close the popup
               }}
-              className="rounded-xl p-4 w-32 sm:w-40 bg-opacity-5 bg-white backdrop-blur-sm mt-2 text-sm sm:text-lg hover:bg-opacity-10 transition ease-in-out duration-200"
+              className="rounded-xl shadow-xl p-4 w-32 sm:w-40 bg-opacity-5 bg-blue-500 backdrop-blur-sm mt-2 text-sm sm:text-lg hover:bg-opacity-10 transition ease-in-out duration-200"
             >
               Submit
             </button>
