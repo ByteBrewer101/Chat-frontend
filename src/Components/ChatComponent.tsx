@@ -55,7 +55,7 @@ const currentTime = getCurrentTime()
       <div className="flex flex-row justify-center p-10">
         <input
           type="text"
-          className="w-full px-4 text-lg bg-opacity-10 backdrop-blur-sm bg-white text-white rounded-full"
+          className="w-full px-4 text-lg bg-opacity-10 backdrop-blur-sm bg-white text-white rounded-full focus:outline-none "
           placeholder="Message here"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}

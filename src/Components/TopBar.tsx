@@ -7,7 +7,7 @@ export function TopBar() {
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-between items-center p-2 bg-opacity-5 bg-white backdrop-blur-sm z-50">
       <div>
-        <button className="text-3xl font-bold text-white px-2">
+        <button className="text-3xl font-bold text-red-500 px-2">
             ChatterBox
         </button>
       </div>
