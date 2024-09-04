@@ -1,33 +1,60 @@
-// hooks/useWebSocket.ts
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useEffect } from "react"
+import {  useRecoilValue, useSetRecoilState } from "recoil";
 import { socketAtom } from "../Recoil/Atoms";
 
-export const useWebSocket = (url: string) => {
-  const setSocketConnection = useSetRecoilState<WebSocket | null>(socketAtom);
+export function useWebSocketServer(url:string){
 
- useEffect(() => {
-   const newSocket = new WebSocket(url);
+  const socketAtomSetter = useSetRecoilState(socketAtom)
+
+  useEffect(()=>{
+    const socket = new WebSocket(url);
+    socketAtomSetter(socket)
+
+    socket.onmessage = (event) => {
+     console.log(event.data);
+    };
+     return () => {
+       socket.close();
+     };
+
+
+  },[socketAtomSetter,url])
+
  
-   newSocket.onmessage = (message) => {
-     console.log("Message received:", message.data);
-   };
-   setSocketConnection(newSocket);
-   return () => newSocket.close();
- }, [setSocketConnection,url]);
-};
+  
+}
 
-export const useSendMessage = () => {
+
+export function useJoinMessage(){
   const socket = useRecoilValue(socketAtom)
 
-  const sendMessage = (message: string) => {
-   socket?.send(message)
-   if(!socket){
-    console.log("error in usesendmessage");
-   }
+  
+
+  const sendMessage = (roomId:string)=>{
+    const message = {
+      type: "joinRoom",
+      id: roomId,
+    };
+
+    socket?.send(JSON.stringify(message))
+
   }
-
   return sendMessage;
-};
+  
+
+}
 
 
+export function useCreateMessage() {
+  const socket = useRecoilValue(socketAtom);
+
+  const sendMessage = (roomId: string) => {
+    const message = {
+      type: "createRoom",
+      id: roomId,
+    };
+
+    socket?.send(JSON.stringify(message));
+  };
+  return sendMessage;
+}

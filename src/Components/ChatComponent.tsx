@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Message } from "./Message";
 import { Message2 } from "./Message2";
-import { useWebSocket } from "../Connectionlogic/Connectionlogic";
+
 
 interface Message {
   id: string;
@@ -16,7 +16,6 @@ export function ChatComponent() {
   const [newMessage, setNewMessage] = useState<string>("");
   const messageListRef = useRef<HTMLDivElement | null>(null);
 
-  useWebSocket("ws://localhost:3000")
 
   const scrollToBottom = () => {
     if (messageListRef.current) {
