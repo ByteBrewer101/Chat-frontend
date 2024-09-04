@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Message } from "./Message";
 import { Message2 } from "./Message2";
+import { useWebSocket } from "../Connectionlogic/Connectionlogic";
 
 interface Message {
   id: string;
   message: string;
-  time:string
+  time: string;
 }
 
 const initialMessages: Message[] = [];
@@ -14,6 +15,8 @@ export function ChatComponent() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [newMessage, setNewMessage] = useState<string>("");
   const messageListRef = useRef<HTMLDivElement | null>(null);
+
+  useWebSocket("ws://localhost:3000")
 
   const scrollToBottom = () => {
     if (messageListRef.current) {
@@ -25,30 +28,29 @@ export function ChatComponent() {
     scrollToBottom();
   }, [messages]);
 
+  
+
+
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       const newMsg: Message = {
-        id: "1", 
+        id: "1",
         message: newMessage,
-        time : currentTime
+        time: currentTime,
       };
       setMessages((prevMessages) => [...prevMessages, newMsg]);
-      setNewMessage(""); 
+      setNewMessage("");
     }
   };
 
-  
-function getCurrentTime() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  return `${hours}:${minutes}`;
-}
+  function getCurrentTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
 
-const currentTime = getCurrentTime()
-
-
-
+  const currentTime = getCurrentTime();
 
   return (
     <div className="h-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 w-full flex flex-col-reverse">
@@ -82,11 +84,19 @@ const currentTime = getCurrentTime()
           .map((msg) => {
             if (msg.id === "1") {
               return (
-                <Message key={msg.id + msg.message} content={msg.message} time ={msg.time}/>
+                <Message
+                  key={msg.id + msg.message}
+                  content={msg.message}
+                  time={msg.time}
+                />
               );
             } else {
               return (
-                <Message2 key={msg.id + msg.message} content={msg.message} time={msg.time}/>
+                <Message2
+                  key={msg.id + msg.message}
+                  content={msg.message}
+                  time={msg.time}
+                />
               );
             }
           })}

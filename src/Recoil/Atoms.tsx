@@ -10,3 +10,8 @@ export const chatStatus = atom({
     key: "chatStatus",
     default:false,
 })
+
+export const socketAtom = atom<WebSocket | null>({
+  key: "socketAtom",
+  default: null, 
+});
