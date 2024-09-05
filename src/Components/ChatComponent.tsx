@@ -1,18 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { Message } from "./Message";
 import { Message2 } from "./Message2";
+import { useRecoilState } from "recoil";
+import { chatArray } from "../Recoil/Atoms";
 
 
-interface Message {
+export interface Message {
   id: string;
   message: string;
   time: string;
 }
 
-const initialMessages: Message[] = [];
+
 
 export function ChatComponent() {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  
+  const [messages, setMessages] = useRecoilState(chatArray);
   const [newMessage, setNewMessage] = useState<string>("");
   const messageListRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,17 +33,17 @@ export function ChatComponent() {
   
 
 
-  const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      const newMsg: Message = {
-        id: "1",
-        message: newMessage,
-        time: currentTime,
-      };
-      setMessages((prevMessages) => [...prevMessages, newMsg]);
-      setNewMessage("");
-    }
-  };
+ const handleSendMessage = () => {
+   if (newMessage.trim()) {
+     const newMsg: Message = {
+       id: "1",
+       message: newMessage,
+       time: currentTime,
+     };
+     setMessages((prevMessages) => [newMsg, ...prevMessages]); 
+     setNewMessage("");
+   }
+ };
 
   function getCurrentTime() {
     const now = new Date();
@@ -81,23 +84,14 @@ export function ChatComponent() {
           .slice()
           .reverse()
           .map((msg) => {
-            if (msg.id === "1") {
-              return (
-                <Message
-                  key={msg.id + msg.message}
-                  content={msg.message}
-                  time={msg.time}
-                />
-              );
-            } else {
-              return (
-                <Message2
-                  key={msg.id + msg.message}
-                  content={msg.message}
-                  time={msg.time}
-                />
-              );
-            }
+            const MessageComponent = msg.id === "1" ? Message : Message2;
+            return (
+              <MessageComponent
+                key={msg.id + msg.message}
+                content={msg.message}
+                time={msg.time}
+              />
+            );
           })}
       </div>
     </div>

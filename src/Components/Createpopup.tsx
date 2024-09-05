@@ -1,12 +1,13 @@
-import { useSetRecoilState } from "recoil";
-import { chatStatus,  popupStateCreate } from "../Recoil/Atoms"; // Import t
-import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { chatStatus,  popupStateCreate, RoomIDatom } from "../Recoil/Atoms"; // Import t
+
 import { useCreateMessage } from "../Connectionlogic/Connectionlogic";
 
 export function CreatePopup() {
   const chatHandle = useSetRecoilState(chatStatus);
   const popupHandler = useSetRecoilState(popupStateCreate);
-  const [roomID, setRoomID] = useState("");
+    const setRoomID = useSetRecoilState(RoomIDatom);
+    const roomID = useRecoilValue(RoomIDatom);
   const messager = useCreateMessage();
 
   const handler = () => {

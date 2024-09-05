@@ -6,6 +6,7 @@ import { ChatComponent } from "../Components/ChatComponent";
 import { Plain } from "../Components/PlainBackground";
 import { JoinPopup } from "../Components/Joinpopup";
 import { CreatePopup } from "../Components/Createpopup";
+import { Chat2 } from "../Components/ChatComponent2";
 
 
 
@@ -16,13 +17,14 @@ export function HomePage() {
 
 
   return (
-    <div className="h-screen bg-gradient-to-r from-slate-900 to-slate-950 flex justify-center items-center">
+    <div className="h-screen bg-gradient-to-r from-slate-900 to-slate-950  flex justify-center items-center">
       <TopBar />
 
       {!chatHandle && <Plain />}
       {popupHandle && <JoinPopup />}
       {popupHandleCreate && <CreatePopup/>}
-      {chatHandle && <ChatComponent />}
+      {/* {chatHandle && <ChatComponent />} */}
+      <Chat2/>
     </div>
   );
 }
