@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { chatArray } from "../Recoil/Atoms";
+import { chatArray, IsConnected } from "../Recoil/Atoms";
 import { Message } from "./Message";
 import { Message2 } from "./Message2";
 import { useEffect, useRef, useState } from "react";
@@ -7,6 +7,8 @@ import { useCreateChat } from "../Connectionlogic/Connectionlogic";
 
 export function Chat2() {
   const chatCreate = useCreateChat();
+   const isconnected = useRecoilValue(IsConnected);
+  
   const messages = useRecoilValue(chatArray);
   const [currentchat, setCurrentchat] = useState("");
   const scrollref = useRef<HTMLDivElement | null>(null);
@@ -30,7 +32,11 @@ export function Chat2() {
   }
 
   return (
-    <div className="flex flex-col h-5/6 w-full  bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 w-full rounded-xl ">
+    <div
+      className={`flex flex-col h-5/6 w-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 rounded-xl ${
+        !isconnected ? "animate-pulse" : ""
+      } `}
+    >
       <div
         ref={scrollref}
         className=" w-full h-full p-2 rounded-xl flex flex-col-reverse overflow-y-auto"
@@ -49,7 +55,7 @@ export function Chat2() {
             );
           })}
       </div>
-      <div className=" w-full flex flex-row justify-center p-4">
+      <div className=" w-full flex flex-row justify-center p-4 ">
         <input
           value={currentchat}
           type="text"
@@ -60,8 +66,11 @@ export function Chat2() {
           }}
         />
         <button
-          className="bg-blue-500 w-1/5 ml-2 p-2 rounded-xl text-white font-bold text-lg"
+          className={`w-1/5 ml-2 p-2 rounded-xl text-white font-bold text-lg ${
+            isconnected ? "bg-blue-500" : "bg-white opacity-5 "
+          }`}
           onClick={chatHandler}
+          disabled={!isconnected}
         >
           Submit
         </button>

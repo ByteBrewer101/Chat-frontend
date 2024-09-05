@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Message } from "./Message";
 import { Message2 } from "./Message2";
-import { useRecoilState } from "recoil";
-import { chatArray } from "../Recoil/Atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { chatArray, IsConnected } from "../Recoil/Atoms";
 
 
 export interface Message {
@@ -18,6 +18,7 @@ export function ChatComponent() {
   const [messages, setMessages] = useRecoilState(chatArray);
   const [newMessage, setNewMessage] = useState<string>("");
   const messageListRef = useRef<HTMLDivElement | null>(null);
+  const isconnected = useRecoilValue(IsConnected)
 
 
   const scrollToBottom = () => {
@@ -55,7 +56,11 @@ export function ChatComponent() {
   const currentTime = getCurrentTime();
 
   return (
-    <div className="h-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 w-full flex flex-col-reverse">
+    <div
+      className={`h-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 w-full flex flex-col-reverse ${
+        !isconnected ? "animate-pulse" : ""
+      }`}
+    >
       <div className="flex flex-row justify-center p-10">
         <input
           type="text"

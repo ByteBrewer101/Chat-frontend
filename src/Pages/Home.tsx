@@ -2,7 +2,6 @@
 import { TopBar } from "../Components/TopBar";
 import { useRecoilValue } from "recoil";
 import { chatStatus,  popupStateCreate, popupStateJoin } from "../Recoil/Atoms";
-import { ChatComponent } from "../Components/ChatComponent";
 import { Plain } from "../Components/PlainBackground";
 import { JoinPopup } from "../Components/Joinpopup";
 import { CreatePopup } from "../Components/Createpopup";

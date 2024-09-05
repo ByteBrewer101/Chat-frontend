@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { chatArray, RoomIDatom, socketAtom } from "../Recoil/Atoms";
+import { chatArray, IsConnected, RoomIDatom, socketAtom } from "../Recoil/Atoms";
 
 
 
@@ -9,10 +9,16 @@ import { chatArray, RoomIDatom, socketAtom } from "../Recoil/Atoms";
 export function useWebSocketServer(url: string) {
   const socketAtomSetter = useSetRecoilState(socketAtom);
   const messageArray = useSetRecoilState(chatArray)
+  const connected = useSetRecoilState(IsConnected)
 
   useEffect(() => {
     const socket = new WebSocket(url);
     socketAtomSetter(socket);
+
+     socket.onopen = () => {
+       console.log("WebSocket connected");
+       connected(true); // Set IsConnected to true
+     };
 
     socket.onmessage = (event) => {
       console.log(event.data);
@@ -31,10 +37,16 @@ export function useWebSocketServer(url: string) {
      messageArray((prevMessages) => [...prevMessages,messageform]);
 
     };
+
+     socket.onclose = () => {
+       console.log("WebSocket disconnected");
+       connected(false); // Set IsConnected to false
+     };
+
     return () => {
       socket.close();
     };
-  }, [socketAtomSetter, url,messageArray]);
+  }, [socketAtomSetter, url,messageArray,connected]);
 }
 
 export function useJoinMessage() {

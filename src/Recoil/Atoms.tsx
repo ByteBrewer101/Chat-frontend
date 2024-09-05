@@ -32,3 +32,8 @@ export const RoomIDatom = atom({
   key:"RoomIDatom",
   default : ""
 })
+
+export const IsConnected = atom({
+  key:"IsConnected",
+  default: false
+})
