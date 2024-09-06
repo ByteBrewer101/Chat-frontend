@@ -45,12 +45,12 @@ export function Chat2() {
           .slice()
           .reverse()
           .map((msg) => {
-            const MessageComponent = msg.id === "1" ? Message : Message2;
+            const MessageComponent = msg.sr === "1" ? Message : Message2;
             return (
               <MessageComponent
-                key={msg.id + msg.message}
+                key={msg.id}
                 content={msg.message}
-                time="11:11"
+                time={msg.time}
               />
             );
           })}
@@ -64,15 +64,16 @@ export function Chat2() {
           onKeyDown={(e) => {
             if (e.key === "Enter") chatHandler();
           }}
+          disabled={!isconnected}
         />
         <button
-          className={`w-1/5 ml-2 p-2 rounded-xl text-white font-bold text-lg ${
+          className={`w-1/5 ml-2 p-2 rounded-xl text-white  ${
             isconnected ? "bg-blue-500" : "bg-white opacity-5 "
           }`}
           onClick={chatHandler}
           disabled={!isconnected}
         >
-          Submit
+          Send
         </button>
       </div>
     </div>

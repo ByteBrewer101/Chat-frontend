@@ -1,8 +1,12 @@
 
+interface MessageProps {
+  content: string;
+  time: string;
+}
 
 
 
-export function Message(props){
+export function Message(props:MessageProps){
 
 
 

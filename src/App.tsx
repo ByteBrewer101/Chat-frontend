@@ -6,10 +6,11 @@ import { useWebSocketServer } from "./Connectionlogic/Connectionlogic";
 
 function App() {
 
-  const apiUrl = "wss://livegroupchat-backend.onrender.com";
+  // const apiUrl = "wss://livegroupchat-backend.onrender.com";
+  const apiUrlDev = "ws://localhost:3000"
 
   
-  useWebSocketServer(apiUrl);
+  useWebSocketServer(apiUrlDev);
   return (
     
       <Router>

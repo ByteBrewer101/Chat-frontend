@@ -1,5 +1,6 @@
-import { atom } from "recoil";
-import { Message } from "../Components/ChatComponent";
+import { UUID } from "crypto";
+import { atom, atomFamily } from "recoil";
+
 
 export const popupStateJoin = atom({
   key: "popupStateJoin", // unique ID (with respect to other atoms/selectors)
@@ -23,10 +24,32 @@ export const socketAtom = atom<WebSocket | null>({
   default: null, 
 });
 
+
+interface Message {
+  id: string; 
+  sr: string;
+  message: string;
+  time: string;
+}
+
 export const chatArray = atom<Message[]>({
   key : "chatArray",
   default: []
 })
+
+
+
+
+
+
+// export const chatIds = atom({
+//   key : "chatIds",
+//   default : 0
+// })
+
+
+
+
 
 export const RoomIDatom = atom({
   key:"RoomIDatom",

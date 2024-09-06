@@ -1,4 +1,12 @@
-export function Message2(props) {
+
+interface MessageProps {
+  content: string;
+  time: string;
+}
+
+
+
+export function Message2(props:MessageProps) {
 
 
   return (

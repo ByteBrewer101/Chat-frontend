@@ -1,6 +1,6 @@
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { chatStatus, popupStateJoin, RoomIDatom } from "../Recoil/Atoms"; // Import t
+import { chatArray, chatStatus, popupStateJoin, RoomIDatom } from "../Recoil/Atoms"; // Import t
 import { useJoinMessage } from "../Connectionlogic/Connectionlogic";
 
 export function JoinPopup() {
@@ -10,10 +10,12 @@ export function JoinPopup() {
   const setRoomID=useSetRecoilState(RoomIDatom)
   const roomID = useRecoilValue(RoomIDatom)
   const messager = useJoinMessage()
+  const chatsArr = useSetRecoilState(chatArray)
 
   const handler = ()=>{
     popupHandler(false);
     chatHandle(true); 
+    chatsArr([])
     messager(roomID)
     
 
