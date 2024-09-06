@@ -24,6 +24,7 @@ export const socketAtom = atom<WebSocket | null>({
 });
 
 
+
 interface Message {
   id: string; 
   sr: string;

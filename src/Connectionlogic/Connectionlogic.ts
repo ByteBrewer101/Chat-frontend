@@ -104,6 +104,7 @@ export function useCreateChat() {
     };
     messageArray((prevMessages) => [...prevMessages, chatupdate]);
     socket?.send(JSON.stringify(message));
+   
   };
   return sendMessage;
 }
