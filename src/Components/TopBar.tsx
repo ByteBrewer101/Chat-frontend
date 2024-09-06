@@ -1,13 +1,18 @@
-import {  useRecoilValue, useSetRecoilState } from "recoil";
-import { IsConnected, popupStateCreate, popupStateJoin, RoomIDatom } from "../Recoil/Atoms"; // Import the popupState atom
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  IsConnected,
+  popupStateCreate,
+  popupStateJoin,
+  RoomIDatom,
+} from "../Recoil/Atoms"; // Import the popupState atom
 import { useNavigate } from "react-router-dom";
 
 export function TopBar() {
   const setPopupHandle = useSetRecoilState(popupStateJoin);
-  const RoomIdCurrent = useRecoilValue(RoomIDatom)
+  const RoomIdCurrent = useRecoilValue(RoomIDatom);
   const setPopupHandleCreate = useSetRecoilState(popupStateCreate);
-  const isconnected = useRecoilValue(IsConnected)
-const nav = useNavigate()
+  const isconnected = useRecoilValue(IsConnected);
+  const nav = useNavigate();
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-between items-center p-2 bg-opacity-5 bg-white backdrop-blur-sm z-50">
       <div>
@@ -22,9 +27,9 @@ const nav = useNavigate()
       </div>
       <div className="flex">
         <button
-        onClick={()=>{
-          navigator.clipboard.writeText(RoomIdCurrent)
-        }}
+          onClick={() => {
+            navigator.clipboard.writeText(RoomIdCurrent);
+          }}
           className={` ${
             RoomIdCurrent === ""
               ? "opacity-0"
@@ -49,7 +54,7 @@ const nav = useNavigate()
         </button>
 
         <button
-          className={`p-2 bg-white bg-opacity-10 rounded-xl text-lg text-white mx-2  transition ease-in-out duration-200 ${
+          className={`px-2 bg-white bg-opacity-10 rounded-xl  text-white mx-2  transition ease-in-out duration-200 w-fit ${
             isconnected
               ? "bg-blue-500 hover:bg-slate-600"
               : "animate-pulse text-opacity-0"
@@ -57,10 +62,26 @@ const nav = useNavigate()
           onClick={() => setPopupHandle(true)} // Toggle popup on button click
           disabled={!isconnected}
         >
-          Join Room
+          <span className="hidden sm:inline">Join Room</span>
+          <span className="inline sm:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              />
+            </svg>
+          </span>
         </button>
         <button
-          className={`p-2 bg-white bg-opacity-10 rounded-xl text-lg text-white mx-2  transition ease-in-out duration-200 ${
+          className={`px-2 bg-white bg-opacity-10 rounded-xl  text-white mx-2  transition ease-in-out duration-200  ${
             isconnected
               ? "bg-blue-500 hover:bg-slate-600"
               : "animate-pulse text-opacity-0 "
@@ -68,7 +89,23 @@ const nav = useNavigate()
           onClick={() => setPopupHandleCreate(true)} // Toggle popup on button click
           disabled={!isconnected}
         >
-          Create Room
+          <span className="hidden sm:inline">Create Room</span>
+          <span className="inline sm:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
+              />
+            </svg>
+          </span>
         </button>
       </div>
     </div>

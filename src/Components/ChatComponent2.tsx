@@ -33,7 +33,7 @@ export function Chat2() {
 
   return (
     <div
-      className={`flex flex-col h-5/6 w-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 rounded-xl ${
+      className={`flex flex-col md:h-5/6 w-full bg-white bg-opacity-5 backdrop-blur-sm md:w-2/3 lg:w-1/2 rounded-xl h-full ${
         !isconnected ? "animate-pulse" : ""
       } `}
     >
