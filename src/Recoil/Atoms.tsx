@@ -1,5 +1,4 @@
-import { UUID } from "crypto";
-import { atom, atomFamily } from "recoil";
+import { atom } from "recoil";
 
 
 export const popupStateJoin = atom({
