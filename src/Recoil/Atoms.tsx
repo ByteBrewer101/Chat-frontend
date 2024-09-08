@@ -28,6 +28,7 @@ export const socketAtom = atom<WebSocket | null>({
 interface Message {
   id: string; 
   sr: string;
+  username:string
   message: string;
   time: string;
 }
@@ -37,6 +38,12 @@ export const chatArray = atom<Message[]>({
   default: []
 })
 
+export const username = atom({
+
+  key:"username",
+  default:""
+
+})
 
 
 

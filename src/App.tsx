@@ -4,22 +4,21 @@ import { HomePage } from "./Pages/Home";
 import { useWebSocketServer } from "./Connectionlogic/Connectionlogic";
 
 
+
+
 function App() {
 
-  const apiUrl = "wss://livegroupchat-backend.onrender.com";
-  // const apiUrl = "ws://localhost:3000"
+  //  const apiUrl = "wss://livegroupchat-backend.onrender.com";
+  const apiUrl = "ws://localhost:3000"
 
-  
+ 
   useWebSocketServer(apiUrl);
   return (
-    
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        
-        </Routes>
-      </Router>
-   
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 

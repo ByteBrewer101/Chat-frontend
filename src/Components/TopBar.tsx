@@ -1,17 +1,21 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   IsConnected,
+
   popupStateCreate,
+
   popupStateJoin,
   RoomIDatom,
+  username,
 } from "../Recoil/Atoms"; // Import the popupState atom
 import { useNavigate } from "react-router-dom";
 
 export function TopBar() {
   const setPopupHandle = useSetRecoilState(popupStateJoin);
   const RoomIdCurrent = useRecoilValue(RoomIDatom);
-  const setPopupHandleCreate = useSetRecoilState(popupStateCreate);
+  const setPopupHandleCreate = useSetRecoilState(popupStateCreate)
   const isconnected = useRecoilValue(IsConnected);
+  const uname = useRecoilValue(username);
   const nav = useNavigate();
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-between items-center p-2 bg-opacity-5 bg-white backdrop-blur-sm z-50">
@@ -59,7 +63,13 @@ export function TopBar() {
               ? "bg-blue-500 hover:bg-slate-600"
               : "animate-pulse text-opacity-0"
           }`}
-          onClick={() => setPopupHandle(true)} // Toggle popup on button click
+          onClick={() => {
+            if (uname.trim() === "") {
+              alert("invalid username");
+            } else {
+              setPopupHandle(true);
+            }
+          }} // Toggle popup on button click
           disabled={!isconnected}
         >
           <span className="hidden sm:inline">Join Room</span>
@@ -86,7 +96,13 @@ export function TopBar() {
               ? "bg-blue-500 hover:bg-slate-600"
               : "animate-pulse text-opacity-0 "
           }`}
-          onClick={() => setPopupHandleCreate(true)} // Toggle popup on button click
+          onClick={() => {
+            if (uname.trim() === "") {
+              alert("invalid username");
+            } else {
+              setPopupHandleCreate(true);
+            }
+          }} // Toggle popup on button click
           disabled={!isconnected}
         >
           <span className="hidden sm:inline">Create Room</span>

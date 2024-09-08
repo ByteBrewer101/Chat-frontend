@@ -5,6 +5,7 @@ import {
   IsConnected,
   RoomIDatom,
   socketAtom,
+  username,
 } from "../Recoil/Atoms";
 import { v4 as uuidv4 } from "uuid";
 
@@ -31,6 +32,7 @@ export function useWebSocketServer(url: string) {
       const currentAtom = {
         id,
         sr: "0",
+        username : recievedData.recepient,
         message: recievedData.message,
         time: new Date().toLocaleTimeString("en-US", {
           hour: "2-digit",
@@ -55,11 +57,13 @@ export function useWebSocketServer(url: string) {
 
 export function useJoinMessage() {
   const socket = useRecoilValue(socketAtom);
+  const uname = useRecoilValue(username)
 
   const sendMessage = (roomId: string) => {
     const message = {
       type: "joinRoom",
       id: roomId,
+      username:uname
     };
 
     socket?.send(JSON.stringify(message));
@@ -69,11 +73,13 @@ export function useJoinMessage() {
 
 export function useCreateMessage() {
   const socket = useRecoilValue(socketAtom);
+  const uname = useRecoilValue(username)
 
   const sendMessage = (roomId: string) => {
     const message = {
       type: "createRoom",
       id: roomId,
+      username : uname
     };
 
     socket?.send(JSON.stringify(message));
@@ -85,10 +91,12 @@ export function useCreateChat() {
   const socket = useRecoilValue(socketAtom);
   const messageArray = useSetRecoilState(chatArray);
   const roomID = useRecoilValue(RoomIDatom);
+  const uname = useRecoilValue(username)
   const sendMessage = (msg: string) => {
     const message = {
       type: "chat",
       id: roomID,
+      username:uname,
       chat: msg,
     };
     const id = uuidv4();
@@ -96,6 +104,7 @@ export function useCreateChat() {
       id,
       sr: "1",
       message: msg,
+      username:uname,
       time: new Date().toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
@@ -108,3 +117,6 @@ export function useCreateChat() {
   };
   return sendMessage;
 }
+
+
+

@@ -49,6 +49,7 @@ export function Chat2() {
             return (
               <MessageComponent
                 key={msg.id}
+                sender={msg.username}
                 content={msg.message}
                 time={msg.time}
               />
