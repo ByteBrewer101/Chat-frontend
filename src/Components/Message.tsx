@@ -13,7 +13,7 @@ export function Message(props:MessageProps){
 
     return (
       <div className="w-full p-4">
-        <p className="text-white justify-end my-1 flex text-blue-500">
+        <p className="justify-end my-1 flex text-white">
           {props.sender}
         </p>
         <div className="flex justify-end">

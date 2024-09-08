@@ -12,7 +12,7 @@ export function Message2(props:MessageProps) {
 
   return (
     <div className="w-full p-4">
-      <p className="text-white my-1 flex text-blue-500">
+      <p className=" my-1 flex text-blue-500">
         {props.sender}
       </p>
       <div className="">
